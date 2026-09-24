@@ -33,6 +33,12 @@ FORBIDDEN_TEXT = (
     "RayeRen/acad-homepage.github.io/google-scholar-stats",
     "500x300.png",
     "googletagmanager.com/gtag/js?id=\"",  # analytics loaded without an id
+    # Owner decision 2026-09-24: nothing about the double-blind submission
+    # appears until it is accepted.
+    "instance image goal navigation",
+    "实例图像目标导航",
+    "under review",
+    "在投",
 )
 # The built stylesheet must carry the dark palette (explicit choice and the
 # no-JavaScript system fallback) and honour reduced motion.

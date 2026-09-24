@@ -42,7 +42,6 @@ _arXiv preprint_, 2026 · [**arXiv**](https://arxiv.org/abs/2607.16943) · [**PD
 
 # 🔬 Research
 
-- **3DGS-based instance image goal navigation** (under review). Online 3D Gaussian Splatting mapping coupled with active exploration so a robot can find a specific object instance from a reference image.
 - [**3D Scene Intelligence**]({{ site.links.blog }}research/3d-scene-intelligence/). 3D representations for navigation, visual localization, and editable scene generation.
 
 <span class='anchor' id='education'></span>
