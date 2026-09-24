@@ -9,6 +9,16 @@
 <script>
   document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
 </script>
+<script>
+  /* Same key and values as the blog ("light" | "dark" | "system"), so on
+     functionhx.github.io the choice carries across both sites. */
+  (function () {
+    var setting = null;
+    try { setting = localStorage.getItem("theme"); } catch (e) {}
+    var dark = setting === "dark" || (setting !== "light" && !!window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+  })();
+</script>
 
 <!-- For all browsers -->
 <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">

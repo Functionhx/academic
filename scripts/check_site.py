@@ -11,7 +11,15 @@ from urllib.parse import unquote, urlsplit
 
 REQUIRED_PAGES = {"index.html": "en", "zh/index.html": "zh"}
 REQUIRED_ANCHORS = ("about-me", "news", "publications", "research")
-FORBIDDEN_TEXT = ("Lorem ipsum", "RayeRen/acad-homepage.github.io/google-scholar-stats", "500x300.png")
+FORBIDDEN_TEXT = (
+    "Lorem ipsum",
+    "RayeRen/acad-homepage.github.io/google-scholar-stats",
+    "500x300.png",
+    "googletagmanager.com/gtag/js?id=\"",  # analytics loaded without an id
+)
+# The built stylesheet must carry the dark palette (explicit choice and the
+# no-JavaScript system fallback) and honour reduced motion.
+REQUIRED_CSS = ("html[data-theme=dark]", "prefers-color-scheme:dark", "prefers-reduced-motion:reduce")
 SKIP_SCHEMES = {"http", "https", "mailto", "tel", "javascript", "data"}
 
 
@@ -77,6 +85,12 @@ def check(site: Path, baseurl: str) -> list[str]:
                 problems.append(f"{rel}: canonical {c.canonical!r} should have path {want!r}")
             if "tech-blog-link" not in c.ids:
                 problems.append(f"{rel}: missing Tech Blog link")
+            if "theme-toggle" not in c.ids:
+                problems.append(f"{rel}: missing theme toggle")
+            if 'localStorage.getItem("theme")' not in text:
+                problems.append(f"{rel}: theme is not applied before first paint")
+            if 'class="page__footer-credit"' not in text or "github.com/RayeRen/acad-homepage.github.io" not in text:
+                problems.append(f"{rel}: MIT template credit missing")
         for ref in c.refs:
             parts = urlsplit(ref)
             if not parts.scheme and not parts.path and parts.fragment and parts.fragment not in c.ids:
@@ -84,6 +98,11 @@ def check(site: Path, baseurl: str) -> list[str]:
             target = resolve(site, baseurl, page, ref)
             if target is not None and not target.exists():
                 problems.append(f"{rel}: broken local ref {ref}")
+    css = site / "assets/css/main.css"
+    css_text = "".join(css.read_text(encoding="utf-8").split()) if css.is_file() else ""
+    for needle in REQUIRED_CSS:
+        if needle.replace(" ", "") not in css_text:
+            problems.append(f"assets/css/main.css: missing {needle!r}")
     return problems
 
 

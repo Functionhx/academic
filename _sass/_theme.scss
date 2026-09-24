@@ -1,0 +1,243 @@
+/* ==========================================================================
+   THEME, FOOTER CREDIT, AND SMALL-SCREEN FIXES
+   Imported last so it overrides the template's hard-coded light colours.
+   ========================================================================== */
+
+/* Dark palette. Applied by an explicit choice (html[data-theme=dark], set in
+   head.html before first paint) or, without JavaScript, by the system setting. */
+$dark-bg           : #1c1c1d;
+$dark-surface      : #26272a;
+$dark-border       : #3a3b3f;
+$dark-text         : #d6d6d6;
+$dark-muted        : #a3a8ad;
+$dark-link         : #8fb4ec;
+$dark-link-hover   : #bcd3f5;
+$dark-link-visited : #b3a6e6;
+
+@mixin dark-palette {
+  color-scheme: dark;
+  background-color: $dark-bg;
+
+  body {
+    color: $dark-text;
+    background-color: $dark-bg;
+  }
+
+  a {
+    color: $dark-link;
+
+    &:visited {
+      color: $dark-link-visited;
+    }
+
+    &:hover {
+      color: $dark-link-hover;
+    }
+  }
+
+  ::selection {
+    color: $dark-bg;
+    background: $dark-text;
+  }
+
+  .masthead,
+  .greedy-nav {
+    background-color: $dark-bg;
+    border-color: $dark-border;
+  }
+
+  .greedy-nav a,
+  .greedy-nav a:visited,
+  .theme-toggle {
+    color: $dark-muted;
+
+    &:hover {
+      color: $dark-text;
+    }
+  }
+
+  .greedy-nav .hidden-links,
+  .author__urls {
+    background: $dark-surface;
+    border-color: $dark-border;
+    box-shadow: 0 0 10px rgba(#000, 0.6);
+
+    &:before {
+      border-color: $dark-border transparent;
+    }
+
+    &:after {
+      border-color: $dark-surface transparent;
+    }
+
+    li {
+      border-color: $dark-border;
+    }
+  }
+
+  /* Sidebar links stay text-coloured as in the light theme; the black and
+     GitHub-black icons would otherwise vanish on the dark background. */
+  .author__urls a,
+  .author__urls a:visited,
+  .author__urls_sm a,
+  .author__urls_sm a:visited {
+    color: inherit;
+  }
+
+  .social-icons .fa,
+  .social-icons .fa-github,
+  .social-icons .fa-github-alt,
+  .social-icons .fa-github-square {
+    color: $dark-text;
+  }
+
+  .greedy-nav .hidden-links a:hover {
+    color: $dark-text;
+    background: $dark-border;
+  }
+
+  @include breakpoint($large) {
+    .author__urls {
+      background: transparent;
+      box-shadow: none;
+    }
+  }
+
+  .page__content h1,
+  .page__content h2,
+  hr {
+    border-color: $dark-border;
+  }
+
+  .paper-box {
+    border-bottom-color: $dark-border;
+
+    .paper-box-image img {
+      box-shadow: 3px 3px 8px rgba(#000, 0.7);
+    }
+  }
+
+  code,
+  pre,
+  .highlight {
+    background: $dark-surface;
+  }
+
+  figcaption,
+  .page__footer-credit {
+    color: $dark-muted;
+  }
+
+  .author__avatar img {
+    border-color: $dark-border;
+  }
+}
+
+html[data-theme=dark] {
+  @include dark-palette;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) {
+    @include dark-palette;
+  }
+}
+
+/* Theme toggle: sits beside the priority-plus nav, which measures its own
+   width, so the flex row simply leaves it less room. Hidden without JS. */
+.masthead__menu {
+  display: flex;
+  align-items: center;
+
+  .greedy-nav {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+}
+
+.theme-toggle {
+  flex: 0 0 auto;
+  margin-left: 0.75rem;
+  padding: 0.35rem 0.5rem;
+  border: 0;
+  background: transparent;
+  color: $masthead-link-color;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+
+  &:hover {
+    color: $masthead-link-color-hover;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $link-color;
+    outline-offset: 2px;
+  }
+
+  .theme-toggle__sun {
+    display: none;
+  }
+}
+
+html[data-theme=dark] .theme-toggle {
+  .theme-toggle__sun {
+    display: inline;
+  }
+
+  .theme-toggle__moon {
+    display: none;
+  }
+}
+
+.no-js .theme-toggle {
+  display: none;
+}
+
+/* Template credit (MIT): aligned with the page container, not the viewport edge. */
+.page__footer-credit {
+  @include container;
+  clear: both;
+  margin-top: 2em;
+  padding: 1.5em 1em 2em;
+  color: mix(#fff, $gray, 10%);
+
+  @include breakpoint($x-large) {
+    max-width: $x-large;
+  }
+}
+
+/* Small screens: teaser above its paper text, and no ribbon overhang at the
+   screen edge. */
+.paper-box {
+  .paper-box-image {
+    order: 1;
+    margin-bottom: 1em;
+  }
+
+  .paper-box-text {
+    order: 2;
+  }
+
+  @include breakpoint($medium) {
+    .paper-box-image {
+      margin-bottom: 0;
+    }
+  }
+}
+
+@include breakpoint(max-width ($medium - 1px)) {
+  .badge {
+    margin-left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

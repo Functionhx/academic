@@ -7,6 +7,7 @@ en:
   tech_blog: "Tech Blog →"
   switch_label: "中文"
   switch_url: "/zh/"
+  theme_toggle: "Toggle dark mode"
 zh:
   home: "主页"
   about: "关于"
@@ -16,3 +17,4 @@ zh:
   tech_blog: "技术博客 →"
   switch_label: "English"
   switch_url: "/"
+  theme_toggle: "切换深色模式"
