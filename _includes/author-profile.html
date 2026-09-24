@@ -9,10 +9,9 @@
   <div class="author__content">
     <h3 class="author__name">{{ author.name }}</h3>
     {% if author.bio %}<p class="author__bio">{{ author.bio }}</p>{% endif %}
+    {% assign t = site.data.i18n[page.lang] %}
+    <p class="author__blog-link"><a id="tech-blog-link" class="btn btn--primary" href="{% if page.lang == 'zh' %}{{ site.links.blog_zh }}{% else %}{{ site.links.blog_en }}{% endif %}" target="_self">{{ t.tech_blog }}</a></p>
   </div>
-
-  {% assign t = site.data.i18n[page.lang] %}
-  <p><a id="tech-blog-link" class="btn btn--primary" href="{% if page.lang == 'zh' %}{{ site.links.blog_zh }}{% else %}{{ site.links.blog_en }}{% endif %}" target="_self">{{ t.tech_blog }}</a></p>
 
   <div class="author__urls-wrapper">
     <!-- <button class="btn btn--inverse">More Info & Contact</button> -->
