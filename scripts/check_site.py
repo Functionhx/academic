@@ -9,7 +9,8 @@ from pathlib import Path
 import sys
 from urllib.parse import unquote, urlsplit
 
-REQUIRED_PAGES = {"index.html": "en"}
+REQUIRED_PAGES = {"index.html": "en", "zh/index.html": "zh"}
+REQUIRED_ANCHORS = ("about-me", "news", "publications", "research")
 FORBIDDEN_TEXT = ("Lorem ipsum", "RayeRen/acad-homepage.github.io/google-scholar-stats", "500x300.png")
 SKIP_SCHEMES = {"http", "https", "mailto", "tel", "javascript", "data"}
 
@@ -20,11 +21,14 @@ class Collector(HTMLParser):
         self.refs: list[str] = []
         self.ids: set[str] = set()
         self.lang: str | None = None
+        self.canonical: str | None = None
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
         if tag == "html":
             self.lang = a.get("lang")
+        if tag == "link" and a.get("rel") == "canonical":
+            self.canonical = a.get("href")
         if a.get("id"):
             self.ids.add(a["id"])
         for key in ("href", "src"):
@@ -64,6 +68,15 @@ def check(site: Path, baseurl: str) -> list[str]:
         c.feed(text)
         if rel in REQUIRED_PAGES and c.lang != REQUIRED_PAGES[rel]:
             problems.append(f"{rel}: html lang={c.lang!r}, expected {REQUIRED_PAGES[rel]!r}")
+        if rel in REQUIRED_PAGES:
+            for anchor in REQUIRED_ANCHORS:
+                if anchor not in c.ids:
+                    problems.append(f"{rel}: missing section anchor #{anchor}")
+            want = f"{baseurl}/{rel.removesuffix('index.html')}"
+            if c.canonical is None or urlsplit(c.canonical).path != want:
+                problems.append(f"{rel}: canonical {c.canonical!r} should have path {want!r}")
+            if "tech-blog-link" not in c.ids:
+                problems.append(f"{rel}: missing Tech Blog link")
         for ref in c.refs:
             parts = urlsplit(ref)
             if not parts.scheme and not parts.path and parts.fragment and parts.fragment not in c.ids:

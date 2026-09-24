@@ -1,6 +1,4 @@
-{% if page.author and site.data.authors[page.author] %}
-  {% assign author = site.data.authors[page.author] %}{% else %}{% assign author = site.author %}
-{% endif %}
+{% assign author = site.data.authors[page.lang] | default: site.data.authors.en %}
 
 <div itemscope itemtype="http://schema.org/Person" class="profile_box">
 
@@ -13,12 +11,12 @@
     {% if author.bio %}<p class="author__bio">{{ author.bio }}</p>{% endif %}
   </div>
 
+  {% assign t = site.data.i18n[page.lang] %}
+  <p><a id="tech-blog-link" class="btn btn--primary" href="{% if page.lang == 'zh' %}{{ site.links.blog_zh }}{% else %}{{ site.links.blog_en }}{% endif %}" target="_self">{{ t.tech_blog }}</a></p>
+
   <div class="author__urls-wrapper">
     <!-- <button class="btn btn--inverse">More Info & Contact</button> -->
     <ul class="author__urls social-icons">
-      {% if site.description %}
-        <li><div style="white-space: normal; margin-bottom: 1em;">{{ site.description }}</div></li>
-      {% endif %}
       {% if author.location %}
         <li><i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> {{ author.location }}</li>
       {% endif %}

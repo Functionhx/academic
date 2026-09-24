@@ -20,45 +20,6 @@ bing_site_verification   :  # get bing_site_verification from https://www.bing.c
 baidu_site_verification  :  # get baidu_site_verification from https://ziyuan.baidu.com/login/index?u=/site/index
 
 # Site Author
-author:
-  name             : "Yuchen Fan"
-  avatar           : "images/android-chrome-512x512.png"
-  bio              : "Beijing Institute of Technology"
-  location         : "Beijing, China"
-  employer         :
-  pubmed           : 
-  googlescholar    :
-  email            : "functionhx@gmail.com"
-  researchgate     :  # e.g., "https://www.researchgate.net/profile/yourprofile"
-  uri              :
-  bitbucket        :
-  codepen          :
-  dribbble         :
-  flickr           :
-  facebook         :
-  foursquare       :
-  github           : # e.g., "github username"
-  google_plus      :
-  keybase          :
-  instagram        :
-  impactstory      : # e.g., "https://profiles.impactstory.org/u/xxxx-xxxx-xxxx-xxxx"
-  lastfm           :
-  linkedin         : # e.g., "linkedin username"
-  dblp             : # e.g., "https://dblp.org/pid/xx/xxxx.html"
-  orcid            : # e.g., "https://orcid.org/xxxx"
-  pinterest        :
-  soundcloud       :
-  stackoverflow    : # http://stackoverflow.com/users/123456/username
-  steam            :
-  tumblr           :
-  twitter          : 
-  vine             :
-  weibo            :
-  xing             :
-  youtube          :
-  wikipedia        :
-
-
 # Reading Files
 include:
   - .htaccess
@@ -147,3 +108,7 @@ timezone: Asia/Shanghai # http://en.wikipedia.org/wiki/List_of_tz_database_time_
 plugins:
   - jekyll-sitemap
   - jekyll-redirect-from
+
+links:
+  blog_en: "https://functionhx.github.io/en/"
+  blog_zh: "https://functionhx.github.io/"

@@ -1,26 +1,23 @@
 ---
-permalink: /
+permalink: /zh/
 title: ""
 excerpt: ""
-lang: en
+lang: zh
 author_profile: true
-redirect_from:
-  - /about/
-  - /about.html
 ---
 
 <span class='anchor' id='about-me'></span>
 
-I am Yuchen Fan, a Robotics Engineering undergraduate at Beijing Institute of Technology.
+我是樊宇琛，北京理工大学机器人工程专业本科生。
 
 <span class='anchor' id='news'></span>
 
-# 🔥 News
+# 🔥 动态
 
 <span class='anchor' id='publications'></span>
 
-# 📝 Publications
+# 📝 论文
 
 <span class='anchor' id='research'></span>
 
-# 🔬 Research
+# 🔬 研究

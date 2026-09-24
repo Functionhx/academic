@@ -2,7 +2,7 @@
 ---
 
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="{{ page.lang | default: 'en' }}" class="no-js">
   <head>
     {% include head.html %}
     {% include head/custom.html %}
@@ -27,6 +27,7 @@
     </div>
 
     {% include scripts.html %}
+    <footer class="page__footer-credit"><small>Template: <a href="https://github.com/RayeRen/acad-homepage.github.io">acad-homepage</a> (MIT)</small></footer>
 
   </body>
 </html>

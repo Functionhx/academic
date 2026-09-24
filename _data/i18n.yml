@@ -1,0 +1,18 @@
+en:
+  home: "Homepage"
+  about: "About"
+  news: "News"
+  publications: "Publications"
+  research: "Research"
+  tech_blog: "Tech Blog →"
+  switch_label: "中文"
+  switch_url: "/zh/"
+zh:
+  home: "主页"
+  about: "关于"
+  news: "动态"
+  publications: "论文"
+  research: "研究"
+  tech_blog: "技术博客 →"
+  switch_label: "English"
+  switch_url: "/"
