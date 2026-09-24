@@ -43,7 +43,4 @@ _arXiv preprint_, 2026 · [**arXiv**](https://arxiv.org/abs/2607.16943) · [**PD
 # 🔬 Research
 
 - **3DGS-based instance image goal navigation** (under review). Online 3D Gaussian Splatting mapping coupled with active exploration so a robot can find a specific object instance from a reference image.
-- **[Batch-LIO](https://github.com/Functionhx/Batch-LIO)**. A batch-wise extension of Point-LIO that reproduces the batch-update idea of Point-LIWO: ~1 ms time-window grouping, in-batch motion de-skew, and batched EKF updates with OpenMP, kept A/B-comparable with Point-LIO. [Engineering details →]({{ site.links.blog_en }}projects/batch-lio/)
-- **[RoboAccel](https://github.com/Functionhx/RoboAccel)**. An end-to-end stack that deploys a trained RL policy to a Zynq-7000 FPGA and an STM32H723 MCU with bit-exact fixed-point verification; for a wheel-legged robot balance controller, FPGA pure inference is 14.4× faster than the same policy on Cortex-M7.
-- **3D Scene Intelligence**. 3D representations for navigation, visual localization, and editable scene generation. [Engineering details →]({{ site.links.blog_en }}research/3d-scene-intelligence/)
-- **Formula Student Driverless**. Autonomous-system integration and track engineering. [Engineering details →]({{ site.links.blog_en }}projects/formula-student-driverless/)
+- **3D Scene Intelligence**. 3D representations for navigation, visual localization, and editable scene generation.

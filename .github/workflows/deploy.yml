@@ -1,0 +1,99 @@
+name: Build and deploy academic homepage
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3.5"
+          bundler-cache: true
+      - name: Build GitHub Pages site
+        env:
+          JEKYLL_ENV: production
+        run: bundle exec jekyll build -d _site_github
+      - name: Build Tencent mirror site
+        env:
+          JEKYLL_ENV: production
+        run: bundle exec jekyll build -d _site_tencent --config _config.yml,_config.tencent.yml
+      - name: Check both builds
+        run: |
+          python3 scripts/check_site.py _site_github --baseurl /academic
+          python3 scripts/check_site.py _site_tencent
+      - name: Add deployment health metadata
+        run: |
+          for d in _site_github _site_tencent; do
+            printf '{"commit":"%s","built_at":"%s"}\n' "$GITHUB_SHA" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > "$d/healthz.json"
+          done
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site_github
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site-tencent
+          path: _site_tencent
+          if-no-files-found: error
+          retention-days: 1
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+
+  deploy-tencent:
+    name: Deploy Tencent Cloud mirror
+    runs-on: ubuntu-latest
+    needs: build
+    continue-on-error: true
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: site-tencent
+          path: _site
+      - name: Configure deploy key
+        env:
+          TENCENT_SSH_KEY: ${{ secrets.TENCENT_SSH_KEY }}
+          TENCENT_KNOWN_HOSTS: ${{ secrets.TENCENT_KNOWN_HOSTS }}
+        run: |
+          install -d -m 700 "$HOME/.ssh"
+          printf '%s\n' "$TENCENT_SSH_KEY" > "$HOME/.ssh/deploy"
+          printf '%s\n' "$TENCENT_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/deploy" "$HOME/.ssh/known_hosts"
+      - name: Publish mirror atomically
+        env:
+          DEPLOY_HOST: 82.157.7.183
+          DEPLOY_USER: site-deploy
+          DEPLOY_ROOT: /var/www/academic
+        run: |
+          release="$DEPLOY_ROOT/releases/$GITHUB_SHA"
+          ssh -i "$HOME/.ssh/deploy" "$DEPLOY_USER@$DEPLOY_HOST" "mkdir -p '$release'"
+          rsync -rlptDz --checksum --delete --chmod=D755,F644 \
+            -e "ssh -i $HOME/.ssh/deploy" _site/ "$DEPLOY_USER@$DEPLOY_HOST:$release/"
+          ssh -i "$HOME/.ssh/deploy" "$DEPLOY_USER@$DEPLOY_HOST" \
+            "test -s '$release/index.html' && test -s '$release/healthz.json' && \
+             ln -sfn 'releases/$GITHUB_SHA' '$DEPLOY_ROOT/current.next' && \
+             mv -Tf '$DEPLOY_ROOT/current.next' '$DEPLOY_ROOT/current'"
+      - name: Verify mirror
+        run: |
+          actual="$(curl --fail -sS --retry 5 --retry-delay 2 https://scholar.fanyuchen.com.cn/healthz.json | python3 -c 'import json,sys; print(json.load(sys.stdin)["commit"])')"
+          test "$actual" = "$GITHUB_SHA"

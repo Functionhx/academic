@@ -6,3 +6,5 @@ _site_t/
 .jekyll-cache/
 .sass-cache/
 .DS_Store
+_site_github/
+_site_tencent/
