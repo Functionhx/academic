@@ -9,7 +9,8 @@
           <li class="masthead__menu-item"><a href="#news">{{ t.news }}</a></li>
           <li class="masthead__menu-item"><a href="#publications">{{ t.publications }}</a></li>
           <li class="masthead__menu-item"><a href="#research">{{ t.research }}</a></li>
-          <li class="masthead__menu-item"><a href="{% if page.lang == 'zh' %}{{ site.links.blog_zh }}{% else %}{{ site.links.blog_en }}{% endif %}">{{ t.tech_blog }}</a></li>
+          <li class="masthead__menu-item"><a href="#education">{{ t.education }}</a></li>
+          <li class="masthead__menu-item"><a href="{{ site.links.blog }}">{{ t.tech_blog }}</a></li>
           <li class="masthead__menu-item"><a href="{{ t.switch_url | relative_url }}" hreflang="{% if page.lang == 'zh' %}en{% else %}zh{% endif %}">{{ t.switch_label }}</a></li>
         </ul>
         <ul class="hidden-links hidden"></ul>

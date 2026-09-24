@@ -40,4 +40,10 @@ _arXiv preprint_, 2026 · [**arXiv**](https://arxiv.org/abs/2607.16943) · [**PD
 # 🔬 研究
 
 - **基于 3DGS 的实例图像目标导航**（在投）。将在线 3D Gaussian Splatting 建图与主动探索结合，让机器人根据一张参考图像找到场景中的特定物体实例。
-- **三维场景智能**。面向导航、视觉定位与可编辑场景生成的三维表示。
+- [**三维场景智能**]({{ site.links.blog }}research/3d-scene-intelligence/)。面向导航、视觉定位与可编辑场景生成的三维表示。
+
+<span class='anchor' id='education'></span>
+
+# 📖 教育
+
+- _2023 – 2027_，[北京理工大学](https://www.bit.edu.cn/)自动化学院，机器人工程专业本科生。

@@ -8,39 +8,52 @@
   {% assign canonical_url = page.url | replace: "index.html", "" | absolute_url %}
 {% endif %}
 
-<title>{{ site.title }} - Homepage</title>
+{% assign t = site.data.i18n[page.lang] | default: site.data.i18n.en %}
+{% assign author = site.data.authors[page.lang] | default: site.data.authors.en %}
+{% assign site_root = site.url | append: site.baseurl %}
+{% assign seo_description = page.description | default: t.description | default: site.description | strip_html | strip_newlines | escape_once %}
+{% assign og_image = author.avatar | prepend: site_root %}
 
-{% assign seo_description = page.description | default: page.excerpt | default: site.description %}
-{% if seo_description %}
-  {% assign seo_description = seo_description | markdownify | strip_html | strip_newlines | escape_once %}
-{% endif %}
+<title>{{ t.page_title }}</title>
+<meta name="description" content="{{ seo_description }}">
 
-{% assign seo_author = page.author | default: page.author[0] | default: site.author[0] %}
-{% if seo_author %}
-  {% if seo_author.twitter %}
-    {% assign seo_author_twitter = seo_author.twitter %}
-  {% else %}
-    {% if site.data.authors and site.data.authors[seo_author] %}
-      {% assign seo_author_twitter = site.data.authors[seo_author].twitter  %}
-    {% else %}
-      {% assign seo_author_twitter = seo_author  %}
-    {% endif %}
-  {% endif %}
-  {% assign seo_author_twitter = seo_author_twitter | replace: "@", "" %}
-{% endif %}
-
-<meta property="og:locale" content="en">
-<meta property="og:site_name" content="{{ site.title }}">
-<meta property="og:title" content="{{ site.title }}">
+<meta property="og:type" content="profile">
+<meta property="og:locale" content="{{ t.og_locale }}">
+<meta property="og:site_name" content="{{ t.page_title }}">
+<meta property="og:title" content="{{ t.page_title }}">
+<meta property="og:description" content="{{ seo_description }}">
+<meta property="og:image" content="{{ og_image }}">
+<meta name="twitter:card" content="summary">
 
 {% if seo_url %}
   <link rel="canonical" href="{{ page.url | prepend: seo_url | replace: "/index.html", "/" }}">
   <meta property="og:url" content="{{ page.url | prepend: seo_url | replace: "/index.html", "/" }}">
 {% endif %}
 
-{% if page.excerpt %}
-  <meta property="og:description" content="{{ seo_description }}">
-{% endif %}
+<link rel="alternate" hreflang="en" href="{{ site_root }}/">
+<link rel="alternate" hreflang="zh-CN" href="{{ site_root }}/zh/">
+<link rel="alternate" hreflang="x-default" href="{{ site_root }}/">
+
+{% assign en_author = site.data.authors.en %}
+{% capture same_as %}["{{ en_author.orcid }}", "{{ en_author.googlescholar }}", "https://github.com/{{ en_author.github }}", "https://www.linkedin.com/in/{{ en_author.linkedin }}", "{{ site.links.blog }}"]{% endcapture %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Yuchen Fan",
+  "alternateName": "樊宇琛",
+  "url": "{{ site_root }}/",
+  "image": "{{ og_image }}",
+  "description": {{ seo_description | jsonify }},
+  "affiliation": {
+    "@type": "CollegeOrUniversity",
+    "name": "Beijing Institute of Technology",
+    "alternateName": "北京理工大学",
+    "url": "https://www.bit.edu.cn/"
+  },
+  "sameAs": {{ same_as | strip }}
+}
+</script>
 
 {% if site.twitter.username %}
   <meta name="twitter:site" content="@{{ site.twitter.username | replace: "@", "" }}">

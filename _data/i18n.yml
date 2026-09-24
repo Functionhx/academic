@@ -8,6 +8,10 @@ en:
   switch_label: "中文"
   switch_url: "/zh/"
   theme_toggle: "Toggle dark mode"
+  education: "Education"
+  page_title: "Yuchen Fan - Academic Homepage"
+  description: "Academic homepage of Yuchen Fan (樊宇琛), Robotics Engineering undergraduate at Beijing Institute of Technology: publications, research, and education."
+  og_locale: "en_US"
 zh:
   home: "主页"
   about: "关于"
@@ -18,3 +22,7 @@ zh:
   switch_label: "English"
   switch_url: "/"
   theme_toggle: "切换深色模式"
+  education: "教育"
+  page_title: "樊宇琛 - 学术主页"
+  description: "樊宇琛（Yuchen Fan）的学术主页：北京理工大学机器人工程专业本科生，论文、研究与教育背景。"
+  og_locale: "zh_CN"

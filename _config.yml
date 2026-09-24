@@ -109,6 +109,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-redirect-from
 
+# Owner decision 2026-09-24: both hosts and both languages link the Chinese blog
+# on github.io (the English blog is not a destination).
 links:
-  blog_en: "https://functionhx.github.io/" # 主站只有中文版，英文页的 Tech Blog 也指向这里
-  blog_zh: "https://functionhx.github.io/"
+  blog: "https://functionhx.github.io/"
