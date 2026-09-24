@@ -1,0 +1,90 @@
+#!/usr/bin/env python3
+"""Check a built academic site: pages, languages, local links, leftovers."""
+
+from __future__ import annotations
+
+import argparse
+from html.parser import HTMLParser
+from pathlib import Path
+import sys
+from urllib.parse import unquote, urlsplit
+
+REQUIRED_PAGES = {"index.html": "en"}
+FORBIDDEN_TEXT = ("Lorem ipsum", "RayeRen/acad-homepage.github.io/google-scholar-stats", "500x300.png")
+SKIP_SCHEMES = {"http", "https", "mailto", "tel", "javascript", "data"}
+
+
+class Collector(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.refs: list[str] = []
+        self.ids: set[str] = set()
+        self.lang: str | None = None
+
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        if tag == "html":
+            self.lang = a.get("lang")
+        if a.get("id"):
+            self.ids.add(a["id"])
+        for key in ("href", "src"):
+            if a.get(key):
+                self.refs.append(a[key])
+
+
+def resolve(site: Path, baseurl: str, page: Path, ref: str) -> Path | None:
+    parts = urlsplit(ref)
+    if parts.scheme in SKIP_SCHEMES or (not parts.path and parts.fragment):
+        return None
+    path = unquote(parts.path)
+    if path.startswith("/"):
+        if baseurl and not (path == baseurl or path.startswith(baseurl + "/")):
+            return site / "__outside_baseurl__" / path.lstrip("/")
+        path = path[len(baseurl):] if baseurl else path
+        target = site / path.lstrip("/")
+    else:
+        target = page.parent / path
+    if target.is_dir() or path.endswith("/"):
+        target = target / "index.html"
+    return target
+
+
+def check(site: Path, baseurl: str) -> list[str]:
+    problems: list[str] = []
+    for rel, lang in REQUIRED_PAGES.items():
+        if not (site / rel).is_file():
+            problems.append(f"missing page: {rel}")
+    for page in sorted(site.rglob("*.html")):
+        text = page.read_text(encoding="utf-8")
+        rel = page.relative_to(site).as_posix()
+        for bad in FORBIDDEN_TEXT:
+            if bad in text:
+                problems.append(f"{rel}: leftover template text {bad!r}")
+        c = Collector()
+        c.feed(text)
+        if rel in REQUIRED_PAGES and c.lang != REQUIRED_PAGES[rel]:
+            problems.append(f"{rel}: html lang={c.lang!r}, expected {REQUIRED_PAGES[rel]!r}")
+        for ref in c.refs:
+            parts = urlsplit(ref)
+            if not parts.scheme and not parts.path and parts.fragment and parts.fragment not in c.ids:
+                problems.append(f"{rel}: anchor #{parts.fragment} has no target")
+            target = resolve(site, baseurl, page, ref)
+            if target is not None and not target.exists():
+                problems.append(f"{rel}: broken local ref {ref}")
+    return problems
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("site", type=Path)
+    ap.add_argument("--baseurl", default="")
+    args = ap.parse_args()
+    problems = check(args.site, args.baseurl.rstrip("/"))
+    for p in problems:
+        print(p)
+    print(f"{'FAIL' if problems else 'OK'}: {len(problems)} problem(s)")
+    return 1 if problems else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
