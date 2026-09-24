@@ -83,7 +83,7 @@ jobs:
         env:
           DEPLOY_HOST: 82.157.7.183
           DEPLOY_USER: site-deploy
-          DEPLOY_ROOT: /var/www/academic
+          DEPLOY_ROOT: /var/www/scholar
         run: |
           release="$DEPLOY_ROOT/releases/$GITHUB_SHA"
           ssh -i "$HOME/.ssh/deploy" "$DEPLOY_USER@$DEPLOY_HOST" "mkdir -p '$release'"
