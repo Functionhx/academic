@@ -86,10 +86,21 @@ jobs:
           DEPLOY_ROOT: /var/www/scholar
         run: |
           release="$DEPLOY_ROOT/releases/$GITHUB_SHA"
-          ssh -i "$HOME/.ssh/deploy" "$DEPLOY_USER@$DEPLOY_HOST" "mkdir -p '$release'"
-          rsync -rlptDz --checksum --delete --chmod=D755,F644 \
-            -e "ssh -i $HOME/.ssh/deploy" _site/ "$DEPLOY_USER@$DEPLOY_HOST:$release/"
-          ssh -i "$HOME/.ssh/deploy" "$DEPLOY_USER@$DEPLOY_HOST" \
+          SSH="ssh -i $HOME/.ssh/deploy -o ConnectTimeout=20 -o ServerAliveInterval=15"
+          # sshd on the host throttles under MaxStartups when it is being scanned,
+          # which drops otherwise healthy connections. Retry before giving up.
+          retry() {
+            for attempt in 1 2 3 4 5; do
+              if "$@"; then return 0; fi
+              echo "attempt $attempt failed; retrying in $((attempt * 15))s"
+              sleep $((attempt * 15))
+            done
+            return 1
+          }
+          retry $SSH "$DEPLOY_USER@$DEPLOY_HOST" "mkdir -p '$release'"
+          retry rsync -rlptDz --checksum --delete --chmod=D755,F644 \
+            -e "$SSH" _site/ "$DEPLOY_USER@$DEPLOY_HOST:$release/"
+          retry $SSH "$DEPLOY_USER@$DEPLOY_HOST" \
             "test -s '$release/index.html' && test -s '$release/healthz.json' && \
              ln -sfn 'releases/$GITHUB_SHA' '$DEPLOY_ROOT/current.next' && \
              mv -Tf '$DEPLOY_ROOT/current.next' '$DEPLOY_ROOT/current'"
