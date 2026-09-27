@@ -1,5 +1,5 @@
 url: "https://scholar.fanyuchen.com.cn"
 baseurl: ""
 links:
-  blog_en: "https://fanyuchen.com.cn/en/"
+  blog_en: "https://fanyuchen.com.cn/" # 主站只有中文版，英文页的 Tech Blog 也指向这里
   blog_zh: "https://fanyuchen.com.cn/"

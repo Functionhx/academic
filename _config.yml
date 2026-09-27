@@ -110,5 +110,5 @@ plugins:
   - jekyll-redirect-from
 
 links:
-  blog_en: "https://functionhx.github.io/en/"
+  blog_en: "https://functionhx.github.io/" # 主站只有中文版，英文页的 Tech Blog 也指向这里
   blog_zh: "https://functionhx.github.io/"
