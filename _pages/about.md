@@ -19,11 +19,25 @@ I am Yuchen Fan (樊宇琛), a Robotics Engineering undergraduate at [Beijing In
 
 # 🔥 News
 
+- _2026.09_: My paper *When Does KV Cache Compression Pay?* (KVLedger) is accepted as a regular paper at GPC 2026.
 - _2026.07_: SinD 2.0, a multi-city UAV dataset for SOTIF-oriented safety validation at signalized intersections, is released on [arXiv](https://arxiv.org/abs/2607.16943).
 
 <span class='anchor' id='publications'></span>
 
 # 📝 Publications
+
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">GPC 2026</div><img src='{{ "/images/kvledger-teaser.jpg" | relative_url }}' alt="The compression crossover depends on the link: never on the same GPU, 1.06–2.08 MB on PCIe, 23–46 MB on dual-GPU P2P" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+[When Does KV Cache Compression Pay? A Quality- and Cost-Aware Runtime Framework for Cloud LLM Serving](https://functionhx.github.io/kv-compression-pays/)
+
+**Yuchen Fan**
+
+_International Conference on Green, Pervasive, and Cloud Computing (GPC)_, 2026, Springer LNCS, to appear · [**Project**](https://functionhx.github.io/kv-compression-pays/) · [**Reviews & response** (Chinese)]({{ site.links.blog }}blog/2026/kvledger-gpc2026-reviews/)
+
+- KVLedger accounts for codec, metadata, transfer, and consumer costs to decide, per link and per model, whether KV cache compression pays off in disaggregated LLM serving.
+</div>
+</div>
 
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">arXiv 2026</div><img src='{{ "/images/sind2-teaser.jpg" | relative_url }}' alt="Egocentric views rendered by the SinD 2.0 3DGS-based visual simulation pipeline" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">

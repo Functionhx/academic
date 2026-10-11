@@ -16,11 +16,25 @@ author_profile: true
 
 # 🔥 动态
 
+- _2026.09_：我的论文 *When Does KV Cache Compression Pay?*（KVLedger）被 GPC 2026 录用为 Regular Paper。
 - _2026.07_：SinD 2.0 在 [arXiv](https://arxiv.org/abs/2607.16943) 发布。这是一个面向信号灯路口 SOTIF 安全验证的多城市无人机数据集。
 
 <span class='anchor' id='publications'></span>
 
 # 📝 论文
+
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">GPC 2026</div><img src='{{ "/images/kvledger-teaser.jpg" | relative_url }}' alt="压缩是否划算取决于链路：同一 GPU 上永不划算，PCIe 上的分界点是 1.06–2.08 MB，双 GPU P2P 上是 23–46 MB" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+[When Does KV Cache Compression Pay? A Quality- and Cost-Aware Runtime Framework for Cloud LLM Serving](https://functionhx.github.io/kv-compression-pays/)
+
+**Yuchen Fan**
+
+_International Conference on Green, Pervasive, and Cloud Computing (GPC)_, 2026，Springer LNCS，待出版 · [**项目主页**](https://functionhx.github.io/kv-compression-pays/) · [**审稿意见与回应**]({{ site.links.blog }}blog/2026/kvledger-gpc2026-reviews/)
+
+- KVLedger 把编解码、元数据、传输和接收端开销都记进账里，按链路、按模型判断分离式 LLM 推理中 KV cache 压缩是否划算。
+</div>
+</div>
 
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">arXiv 2026</div><img src='{{ "/images/sind2-teaser.jpg" | relative_url }}' alt="SinD 2.0 基于 3DGS 的视觉仿真渲染出的自车视角画面" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
