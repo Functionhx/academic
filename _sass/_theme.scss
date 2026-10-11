@@ -112,7 +112,8 @@ $dark-link-visited : #b3a6e6;
   .paper-box {
     border-bottom-color: $dark-border;
 
-    .paper-box-image img {
+    .paper-box-image img,
+    .paper-box-image video {
       box-shadow: 3px 3px 8px rgba(#000, 0.7);
     }
   }

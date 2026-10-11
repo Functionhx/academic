@@ -23,14 +23,14 @@ author_profile: true
 
 # 📝 论文
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">GPC 2026</div><img src='{{ "/images/kvledger-teaser.jpg" | relative_url }}' alt="压缩是否划算取决于链路：同一 GPU 上永不划算，PCIe 上的分界点是 1.06–2.08 MB，双 GPU P2P 上是 23–46 MB" width="100%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">GPC 2026</div><video src='{{ "/images/kvledger-hero.mp4" | relative_url }}' poster='{{ "/images/kvledger-hero-poster.jpg" | relative_url }}' autoplay muted loop playsinline preload="auto" aria-label="项目主页动画：KV cache 从 prefill worker 传到 decode worker，只有超过与链路相关的分界点，压缩才更快"></video></div></div>
 <div class='paper-box-text' markdown="1">
 
 [When Does KV Cache Compression Pay? A Quality- and Cost-Aware Runtime Framework for Cloud LLM Serving](https://functionhx.github.io/kv-compression-pays/)
 
 **Yuchen Fan**
 
-_International Conference on Green, Pervasive, and Cloud Computing (GPC)_, 2026，Springer LNCS，待出版 · [**项目主页**](https://functionhx.github.io/kv-compression-pays/) · [**审稿意见与回应**]({{ site.links.blog }}blog/2026/kvledger-gpc2026-reviews/)
+_International Conference on Green, Pervasive, and Cloud Computing (GPC)_, 2026，Springer LNCS，待出版 · [**项目主页**](https://functionhx.github.io/kv-compression-pays/) · [**审稿意见**]({{ site.links.blog }}blog/2026/kvledger-gpc2026-reviews/)
 
 - KVLedger 把编解码、元数据、传输和接收端开销都记进账里，按链路、按模型判断分离式 LLM 推理中 KV cache 压缩是否划算。
 </div>

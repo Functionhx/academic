@@ -1,4 +1,13 @@
 <script src="{{ '/assets/js/main.min.js' | relative_url }}"></script>
 <script src="{{ '/assets/js/theme-toggle.js' | relative_url }}"></script>
+<script>
+  // Paper covers loop silently; visitors who ask for reduced motion get the poster frame.
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.querySelectorAll("video[autoplay]").forEach(function (video) {
+      video.removeAttribute("autoplay");
+      video.pause();
+    });
+  }
+</script>
 
 {% include analytics.html %}

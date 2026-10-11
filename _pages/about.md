@@ -26,14 +26,14 @@ I am Yuchen Fan (樊宇琛), a Robotics Engineering undergraduate at [Beijing In
 
 # 📝 Publications
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">GPC 2026</div><img src='{{ "/images/kvledger-teaser.jpg" | relative_url }}' alt="The compression crossover depends on the link: never on the same GPU, 1.06–2.08 MB on PCIe, 23–46 MB on dual-GPU P2P" width="100%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">GPC 2026</div><video src='{{ "/images/kvledger-hero.mp4" | relative_url }}' poster='{{ "/images/kvledger-hero-poster.jpg" | relative_url }}' autoplay muted loop playsinline preload="auto" aria-label="Animation from the project page: KV cache moves from the prefill worker to the decode worker, and compression wins only above a link-dependent crossover"></video></div></div>
 <div class='paper-box-text' markdown="1">
 
 [When Does KV Cache Compression Pay? A Quality- and Cost-Aware Runtime Framework for Cloud LLM Serving](https://functionhx.github.io/kv-compression-pays/)
 
 **Yuchen Fan**
 
-_International Conference on Green, Pervasive, and Cloud Computing (GPC)_, 2026, Springer LNCS, to appear · [**Project**](https://functionhx.github.io/kv-compression-pays/) · [**Reviews & response** (Chinese)]({{ site.links.blog }}blog/2026/kvledger-gpc2026-reviews/)
+_International Conference on Green, Pervasive, and Cloud Computing (GPC)_, 2026, Springer LNCS, to appear · [**Project**](https://functionhx.github.io/kv-compression-pays/) · [**Reviews** (Chinese)]({{ site.links.blog }}blog/2026/kvledger-gpc2026-reviews/)
 
 - KVLedger accounts for codec, metadata, transfer, and consumer costs to decide, per link and per model, whether KV cache compression pays off in disaggregated LLM serving.
 </div>
