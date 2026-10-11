@@ -23,7 +23,7 @@ author_profile: true
 
 # 📝 论文
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">GPC 2026</div><video src='{{ "/images/kvledger-hero.mp4" | relative_url }}' poster='{{ "/images/kvledger-hero-poster.jpg" | relative_url }}' autoplay muted loop playsinline preload="auto" aria-label="项目主页动画：KV cache 从 prefill worker 传到 decode worker，只有超过与链路相关的分界点，压缩才更快"></video></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">GPC 2026</div><video src='{{ "/images/kvledger-hero.mp4" | relative_url }}' poster='{{ "/images/kvledger-hero-poster.jpg" | relative_url }}' autoplay muted loop playsinline preload="auto" aria-label="项目主页动画：prefill worker 把 KV cache 打包发送给 decode worker；23 MB 的数据块因为编解码开销，fp16 反而比压缩版先到"></video></div></div>
 <div class='paper-box-text' markdown="1">
 
 [When Does KV Cache Compression Pay? A Quality- and Cost-Aware Runtime Framework for Cloud LLM Serving](https://functionhx.github.io/kv-compression-pays/)

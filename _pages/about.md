@@ -26,7 +26,7 @@ I am Yuchen Fan (樊宇琛), a Robotics Engineering undergraduate at [Beijing In
 
 # 📝 Publications
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">GPC 2026</div><video src='{{ "/images/kvledger-hero.mp4" | relative_url }}' poster='{{ "/images/kvledger-hero-poster.jpg" | relative_url }}' autoplay muted loop playsinline preload="auto" aria-label="Animation from the project page: KV cache moves from the prefill worker to the decode worker, and compression wins only above a link-dependent crossover"></video></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">GPC 2026</div><video src='{{ "/images/kvledger-hero.mp4" | relative_url }}' poster='{{ "/images/kvledger-hero-poster.jpg" | relative_url }}' autoplay muted loop playsinline preload="auto" aria-label="Animation from the project page: the prefill worker packs and sends KV cache to the decode worker; for a 23 MB chunk, fp16 arrives before the compressed copy because of the codec cost"></video></div></div>
 <div class='paper-box-text' markdown="1">
 
 [When Does KV Cache Compression Pay? A Quality- and Cost-Aware Runtime Framework for Cloud LLM Serving](https://functionhx.github.io/kv-compression-pays/)
